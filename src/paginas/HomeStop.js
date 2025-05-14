@@ -34,12 +34,13 @@ function Home() {
   const [letraGerada, setLetraGerada] = useState('');
   const [removidos, setRemovidos] = useState([]);
 
-  function gerador() {
-    if (novoAlfabeto.length === 0) {
-      setLetraGerada('Acabou!');
-      return;
+  useEffect(() => {
+    if (novoAlfabeto.length === 0 && removidos.length > 0) {
+      setLetraGerada('Acabou o alfabeto');
     }
+  }, [novoAlfabeto, removidos]);
 
+  function gerador() {
     const numeroAleatorio = Math.floor(Math.random() * 26) + 1;
     const comparador = novoAlfabeto.find(
       (letra) => letra.numero === numeroAleatorio
@@ -70,12 +71,23 @@ function Home() {
     <>
       <div className='title'>
         <h1>Gerador de Letras</h1>
-        <h2>para STOP</h2>
+        <h2>(para STOP)</h2>
       </div>
 
       <div className='gerador'>
-        <p>{letraGerada}</p>
-        <button onClick={gerador}>Gerar</button>
+        {removidos.length === 0 ? (
+          <>
+            <p>Começe a jogar!</p>
+            <button onClick={gerador}>Gerar</button>
+          </>
+        ) : (
+          <>
+            <p>{letraGerada}</p>
+            <button onClick={gerador} disabled={novoAlfabeto.length === 0}>
+              Gerar
+            </button>
+          </>
+        )}
       </div>
 
       <div className='gerados'>
@@ -83,7 +95,11 @@ function Home() {
           return <p key={index}>{letraRemovida}</p>;
         })}
       </div>
-      <button onClick={limparLista}>Limpar</button>
+      <div className='limpar-lista'>
+        <button onClick={limparLista} disabled={removidos.length === 0}>
+          Limpar
+        </button>
+      </div>
     </>
   );
 }
