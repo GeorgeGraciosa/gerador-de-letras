@@ -71,7 +71,6 @@ function Home() {
     <>
       <div className='title'>
         <h1>Gerador de Letras</h1>
-        <h2>(para STOP)</h2>
       </div>
 
       <div className='gerador'>
