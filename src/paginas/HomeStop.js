@@ -76,7 +76,7 @@ function Home() {
       <div className='gerador'>
         {removidos.length === 0 ? (
           <>
-            <p>Começe a jogar!</p>
+            <p>Começe a gerar</p>
             <button onClick={gerador}>Gerar</button>
           </>
         ) : (
